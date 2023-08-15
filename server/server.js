@@ -14,6 +14,20 @@ app.get("/", (req, res) => {
     return res.status(200).send("Welcome to MERN Stack Tutorial!");
 });
 
+// Route to get all notes from database
+app.get("/notes", async (req, res) => {
+    try {
+        const allNotes = await Note.find({});
+
+        return res.json({
+            count: allNotes.length,
+            data: allNotes
+        });
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 // Route to save a new note
 app.post("/notes", async (req, res) => {
     try {
