@@ -46,7 +46,20 @@ app.post("/notes", async (req, res) => {
 
         const note = await Note.create({ title, content });
 
-        return res.send(note);
+        return res.json(note);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+// Route to Update a note
+app.patch("/notes/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        await Note.findByIdAndUpdate(id, req.body);
+
+        return res.json({ message: "Note updated successfully" });
     } catch (err) {
         console.log(err);
     }
