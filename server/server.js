@@ -65,6 +65,19 @@ app.patch("/notes/:id", async (req, res) => {
     }
 });
 
+// Route to Delete a note
+app.delete("/notes/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        await Note.findByIdAndDelete(id);
+
+        return res.json({ message: "Note deleted successfully" });
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 mongoose
     .connect(process.env.MONGO_DB_URL)
     .then(() => {
