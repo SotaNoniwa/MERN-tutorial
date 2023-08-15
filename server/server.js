@@ -28,6 +28,17 @@ app.get("/notes", async (req, res) => {
     }
 });
 
+// Route to Get one note by id
+app.get("/notes/:id", async (req, res) => {
+    try {
+        const note = await Note.findById(req.params.id);
+
+        return res.json(note);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 // Route to save a new note
 app.post("/notes", async (req, res) => {
     try {
