@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Note(props) {
 
@@ -17,10 +18,17 @@ function Note(props) {
     }
   }
 
+  let navigate = useNavigate();
+  const navigateToEditor = () => {
+    let path = "notes/edit/" + props.id;
+    navigate(path);
+  }
+
   return (
     <div className="note">
       <h1>{props.title}</h1>
       <p>{props.content}</p>
+      <button onClick={navigateToEditor}>Edit</button>
       <button onClick={deleteNote}>DELETE</button>
     </div>
   );
