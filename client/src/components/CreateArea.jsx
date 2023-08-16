@@ -19,14 +19,19 @@ function CreateArea(props) {
   }
 
   async function submitNote(event) {
-    // Make POST request to the server
-    await axios.post(process.env.REACT_APP_API_BASE_URL, note);
+    try {
+      // Make POST request to the server
+      await axios.post(process.env.REACT_APP_API_BASE_URL, note);
 
-    setNote({
-      title: "",
-      content: ""
-    });
-    event.preventDefault();
+      setNote({
+        title: "",
+        content: ""
+      });
+
+      event.preventDefault();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
