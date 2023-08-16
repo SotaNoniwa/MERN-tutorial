@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Editor() {
@@ -52,6 +52,26 @@ function Editor() {
         setIsEdited(true);
     }
 
+    function handleOnCancel(event) {
+        setEditedNote(originalNote);
+
+        setIsEdited(false);
+    }
+
+    let navigate = useNavigate();
+    async function handleOnSave(event) {
+        try {
+            // Make PATCH request to the server
+            await axios.patch(process.env.REACT_APP_API_BASE_URL + id, editedNote);
+
+            setIsEdited(false);
+
+            navigate("/");
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return <div>
         <h1>Edit a Note</h1>
         <input
@@ -66,7 +86,12 @@ function Editor() {
             value={editedNote.content}
             onChange={handleOnChange}
         />
-        {isEdited && <p>The note is under editing</p>}
+        {isEdited &&
+            <div>
+                <button onClick={handleOnSave}>Save</button>
+                <button onClick={handleOnCancel}>Cancel</button>
+            </div>
+        }
     </div>
 }
 
