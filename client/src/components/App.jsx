@@ -27,12 +27,6 @@ function App() {
     fetchNotes();
   }, []);
 
-  function addNote(newNote) {
-    setNotes(prevNotes => {
-      return [...prevNotes, newNote];
-    });
-  }
-
   function deleteNote(id) {
     setNotes(prevNotes => {
       return prevNotes.filter((noteItem, index) => {
@@ -44,7 +38,7 @@ function App() {
   return (
     <div>
       <Header />
-      <CreateArea onAdd={addNote} />
+      <CreateArea />
       {notes.map((note) => {
         return (
           <Note

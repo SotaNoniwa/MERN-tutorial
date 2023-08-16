@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function CreateArea(props) {
   const [note, setNote] = useState({
@@ -17,8 +18,10 @@ function CreateArea(props) {
     });
   }
 
-  function submitNote(event) {
-    props.onAdd(note);
+  async function submitNote(event) {
+    // Make POST request to the server
+    await axios.post(process.env.REACT_APP_API_BASE_URL, note);
+
     setNote({
       title: "",
       content: ""
